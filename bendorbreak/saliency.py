@@ -59,8 +59,16 @@ def single_output_rotating_model(
     angle_input = tf.keras.Input(shape=(), name='angle_input')
 
     # Rotate the image
-    rotated_image = tf.keras.layers.Lambda(lambda x: tfa.image.rotate(x[0], x[1]))(
-        [image_input, angle_input])
+    #
+    # TODO: paltas rotates images with scipy.ndimage.rotate, which uses
+    # a third-order spline by default. Unfortunately tfa.image.rotate only
+    # supports nearest-neighbor (bad) and bilinear (order=1 in scipy.ndimage).
+    # Bilinear is about 5x closer to ndimage.rotate than nearest, but still not
+    # perfect.
+    def _rotate_img(inputs):
+        img, rot_angle = inputs
+        return tfa.image.rotate(img, rot_angle, interpolation='bilinear')
+    rotated_image = tf.keras.layers.Lambda(_rotate_img)([image_input, angle_input])
 
     # Apply the neural net
     predictions = model(rotated_image)
@@ -126,6 +134,11 @@ def _get_rotated(x, out, xname, yname, params, angle):
 
 
 def _rotate(x, y, theta):
+    # Note the angle is flipped from the usual equations, since lenstronomy has
+    # x and y mixed up -- x is vertical, y is horizontal.
+    # Paltas uses this minus sign when it rotates the images:
+    # https://github.com/swagnercarena/paltas/blob/2edd7f418a63273d5b2fcc75819e811bceb1f149/paltas/Analysis/dataset_generation.py#L440
+    theta = - theta
     return (
         x * tf.cos(theta) - y * tf.sin(theta),
         x * tf.sin(theta) + y * tf.cos(theta))

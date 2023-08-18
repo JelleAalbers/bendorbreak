@@ -23,15 +23,12 @@ def single_image_test(model, img, truth=None, norms_csv=bb.DEFAULT_NORMS_CSV):
 
     """
     param_names, param_means, param_scales = bb.parse_norms_csv(norms_csv)
-    print(param_names)
     result = model.predict(img[None,...,None] / img.std())
     prediction = dict(zip(
         param_names,
         bb.denormalize(result, param_means, param_scales)[0]))
-    truth = {p: truth[p] for p in param_names}
     report = dict(
         prediction=prediction,
-        truth={p: truth[p] for p in param_names},
         prior_mean={p: param_means[i] for i, p in enumerate(param_names)},
         prior_scale={p: param_scales[i] for i, p in enumerate(param_names)},
     )

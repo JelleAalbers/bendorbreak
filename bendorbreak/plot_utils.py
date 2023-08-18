@@ -29,6 +29,10 @@ parameter_labels = {
     'e1': r'$e_1$', 'e2': r'$e_2$',
     'gamma1': r'$\gamma_1$', 'gamma2': r'$\gamma_2$'}
 
+# Also enable access by paltas name
+parameter_labels.update({bb.PALTAS_NAMES.get(k, k): v for k, v in parameter_labels.items()})
+parameter_colors.update({bb.PALTAS_NAMES.get(k, k): v for k, v in parameter_colors.items()})
+
 
 @export
 def save_plot(*plot_name, pdf=False, **kwargs):

@@ -1,9 +1,12 @@
 bendorbreak
 ============
 
+Robustness tests for inference on strong gravitational lenses with neural networks.
 
-![Build Status](https://github.com/JelleAalbers/bendorbreak/actions/workflows/pytest.yml/badge.svg)
-[![Documentation Status](https://readthedocs.org/projects/nabendorbreakfi/badge/?version=latest)](https://bendorbreak.readthedocs.io/en/latest/?badge=latest)
+Features:
+  * **quicktest**: one command to simulate images with an altered config, then run a network and hierarchical inference on them.
+  * **Saliency maps** using integrated gradients from [alibi](https://docs.seldon.io/projects/alibi/en/stable/examples/integrated_gradients_imagenet.html). See which pixels a prediction is most sensitive to.
 
-Robustness tests for strong lensing inference with neural networks
-
+Related packages:
+  * [paltas](https://github.com/swagnercarena/paltas): Package to simulate lenses, train networks in TensorFlow, and perform hierarchical inference on the network predictions.
+  * [deepdarksub](https://github.com/JelleAalbers/deepdarksub): earlier attempt to wrap paltas and train networks with FastAI.
