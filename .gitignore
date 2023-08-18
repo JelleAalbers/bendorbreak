@@ -1,0 +1,55 @@
+# Jupyter
+.ipynb_checkpoints
+
+# cProfile output
+*.prof
+
+# Python cache
+*.py[cod]
+__pycache__
+
+# Testing caches
+.pytest_cache
+.hypothesis
+
+# Packages
+.eggs
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Sphinx
+docs/_build
+
+# Pycharm
+.idea
+
+# Visual Studio
+.vscode
+
+# coverage
+.coverage
+
+# Plots
+*.png
+
+# Data
+*.pkl
+*.csv
+
+# Also data
+paltas_datasets
+quicktest_results
+xresnet34_full_final.h5
+
+# Unfinished notebooks
+notebooks_jelle
